@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE TREND TALK | FW26 - Mariana</title>
+    <!-- Google Fonts: Cinzel para estética Zara Editorial y Montserrat para lectura limpia -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #240609;
+            --card-bg: #350A0F;
+            --text-color: #f3f3f3;
+            --accent-color: #E5A93B;
+            --border-color: #52121A;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* VISTAS DE PÁGINA (SPA) */
+        .page-view {
+            display: none;
+            width: 100%;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        /* ENCABEZADO CON DIFUMINADO SUAVE EN EL BORDE INFERIOR */
+        header {
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(180deg, rgba(36, 6, 9, 0.2) 0%, rgba(36, 6, 9, 0.4) 60%, rgba(36, 6, 9, 1) 100%), 
+                        url('https://imgix.bustle.com/uploads/image/2026/1/23/28da07e7/gettyimages-2257804267.jpg?w=760&h=1140&fit=crop&crop=faces&dpr=2');
+            background-position: center 5%; 
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            color: #ffffff;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.95), 0 0 15px rgba(0,0,0,0.85);
+        }
+
+        header p {
+            margin: 0.8rem 0 0;
+            color: var(--accent-color);
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.95), 0 0 10px rgba(0,0,0,0.9);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .colours-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .colours-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-color);
+            margin: 0.6rem auto 0;
+        }
+
+        /* GRID EDITORIAL PARA LOS CUADRADOS DE COLOR */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .color-box-2x1 {
+                grid-column: 1 / -1;
+                aspect-ratio: 2 / 1 !important;
+            }
+        }
+
+        .color-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .color-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 16px rgba(229, 169, 59, 0.25);
+        }
+
+        .color-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .color-overlay-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .color-overlay-title h3 {
+            margin: 0;
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.2rem, 8.5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: none;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .color-overlay-title.title-compact h3 {
+            font-size: clamp(1.5rem, 5.8vw, 2.3rem);
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        /* PÁGINA INDEPENDIENTE DE GALERÍA */
+        .gallery-page-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-start;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .gallery-page-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .gallery-page-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 600px) {
+            .gallery-page-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .gallery-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* FORMATO 9:16 ESTRICTO PARA LAS TARJETAS DE EJEMPLO EN TENDENCIAS */
+        .trend-examples-grid .gallery-card img {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-card-info {
+            padding: 0.6rem 0.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .gallery-card-info h4 {
+            margin: 0 0 0.2rem 0;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-card-info p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: #dcdcdc;
+            line-height: 1.3;
+        }
+
+        /* GRID HORIZONTAL DE 4 FOTOS EN UNA SOLA HILERA */
+        .trend-examples-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .trend-examples-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* LIGHTBOX CON LUPA DE ZOOM MÓVIL Y TÁCTIL */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 75vw;
+            max-width: 700px;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-zoom-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            background-color: #1a0204;
+            cursor: zoom-in;
+            touch-action: none;
+        }
+
+        /* LUPA INTERACTIVA DE ZOOM DE ALTA DEFINICIÓN */
+        .zoom-lens {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            cursor: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
+            display: none;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            z-index: 3020;
+        }
+
+        .lightbox-caption {
+            margin-top: 1rem;
+            color: var(--accent-color);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 2.2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-color);
+        }
+
+        /* BOTONES DE FLECHA (ANTERIOR Y SIGUIENTE) */
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(36, 6, 9, 0.6);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+            z-index: 3010;
+        }
+
+        .lightbox-arrow:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-arrow.prev {
+            left: 20px;
+        }
+
+        .lightbox-arrow.next {
+            right: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .lightbox-content {
+                width: 90vw;
+                height: 65vh;
+            }
+            .zoom-lens {
+                width: 120px;
+                height: 120px;
+            }
+            .lightbox-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            .lightbox-arrow.prev { left: 8px; }
+            .lightbox-arrow.next { right: 8px; }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #ffdca8;
+            background: rgba(229, 169, 59, 0.08);
+            padding: 0.8rem;
+            border-left: 3px solid var(--accent-color);
+            margin: 0.8rem 0 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #b5838a;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. PÁGINA PRINCIPAL -->
+    <div id="homePage" class="page-view active">
+        <header>
+            <h1>THE TREND TALK | FW26</h1>
+            <p>Man Trends & Color Palette | Trainer: Mariana</p>
+        </header>
+
+        <div class="container">
+
+            <h2 class="colours-title">Colours</h2>
+            
+            <div class="grid">
+                
+                <!-- 1. Purple Haze -->
+                <div class="color-box" onclick="navigateToGallery('Purple Haze')">
+                    <img src="https://www.colorhexa.com/681b7e.png" alt="Purple Haze">
+                    <div class="color-overlay-title">
+                        <h3>Purple<br>Haze</h3>
+                    </div>
+                </div>
+
+                <!-- 2. Sunny Yellow -->
+                <div class="color-box" onclick="navigateToGallery('Sunny Yellow')">
+                    <img src="https://www.colorhexa.com/f4d03f.png" alt="Sunny Yellow">
+                    <div class="color-overlay-title">
+                        <h3>Sunny<br>Yellow</h3>
+                    </div>
+                </div>
+
+                <!-- 3. Berry Red (#8e0000) -->
+                <div class="color-box" onclick="navigateToGallery('Berry Red')">
+                    <img src="https://www.colorhexa.com/8e0000.png" alt="Berry Red">
+                    <div class="color-overlay-title">
+                        <h3>Berry<br>Red</h3>
+                    </div>
+                </div>
+
+                <!-- 4. Olive Green (#585f2a) -->
+                <div class="color-box" onclick="navigateToGallery('Olive Green')">
+                    <img src="https://www.colorhexa.com/585f2a.png" alt="Olive Green">
+                    <div class="color-overlay-title">
+                        <h3>Olive<br>Green</h3>
+                    </div>
+                </div>
+
+                <!-- 5. Enhanced Neutrals -->
+                <div class="color-box" onclick="navigateToGallery('Enhanced Neutrals')">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.RqcWy1RUehYtoiLER-lqRQAAAA?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Enhanced Neutrals">
+                    <div class="color-overlay-title title-compact">
+                        <h3>Enhanced<br>Neutrals</h3>
+                    </div>
+                </div>
+
+                <!-- 6. Midnight Blue -->
+                <div class="color-box" onclick="navigateToGallery('Midnight Blue')">
+                    <img src="https://www.colorhexa.com/040622.png" alt="Midnight Blue">
+                    <div class="color-overlay-title title-compact">
+                        <h3>Midnight<br>Blue</h3>
+                    </div>
+                </div>
+
+                <!-- 7. Black with Black (Formato 2x1) -->
+                <div class="color-box color-box-2x1" onclick="navigateToGallery('Black with Black')">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.uitE7mBb6opOGRDgeF5NXgHaEo?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Black with Black">
+                    <div class="color-overlay-title title-compact">
+                        <h3>Black<br>with<br>Black</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2 class="section-title" style="margin-top: 3rem;">⚡ Tendencias Principales</h2>
+            
+            <!-- Tendencia 1: layer -->
+            <div class="card">
+                <h3>layer</h3>
+                <p>Construir identidad dejando visibles diferentes largos, pesos y textiles de camisas y jerséis.</p>
+                <div class="quote">"Multiplicas las posibilidades de cada prenda."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0002.jpg?w=800', 'Ralph Lauren Men’s Fall 2026 Look 2/73')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0002.jpg?w=800" alt="Ralph Lauren Look 2">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Ralph Lauren Look 2</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0021.jpg?w=800', 'KidSuper Men’s Fall 2026 Look 21/42')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0021.jpg?w=800" alt="KidSuper Look 21">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>KidSuper Look 21</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0041.jpg?w=800', 'Dries van Noten Men’s Fall 2026 Look 41/67')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0041.jpg?w=800" alt="Dries van Noten Look 41">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Dries van Noten Look 41</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-054.jpg?w=800', 'Louis Vuitton Men’s Fall 2026 Look 54/80')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-054.jpg?w=800" alt="Louis Vuitton Look 54">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Louis Vuitton Look 54</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 2: blazer -->
+            <div class="card">
+                <h3>blazer</h3>
+                <p>Sale del traje clásico para estructurar looks relajados y equilibrar prendas funcionales.</p>
+                <div class="quote">"La elegancia desenfadada define la nueva silueta formal."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0039.jpg?w=800', 'Dior Men’s Fall 2026 Look 38/64')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0039.jpg?w=800" alt="Dior Look 38">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Dior Look 38</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0009.jpg?w=800', 'Dries van Noten Men’s Fall 2026 Look 9/67')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0009.jpg?w=800" alt="Dries van Noten Look 9">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>Dries van Noten Look 9</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-041.jpeg?w=800', 'Amiri Fall 2026 Look 41/59')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-041.jpeg?w=800" alt="Amiri Look 41">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Amiri Look 41</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-042.jpg?w=800', 'Louis Vuitton Men’s Fall 2026 Look 42/80')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-042.jpg?w=800" alt="Louis Vuitton Look 42">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Louis Vuitton Look 42</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 3: mountain -->
+            <div class="card">
+                <h3>mountain</h3>
+                <p>El equipamiento outdoor llega a la ciudad con materiales refinados, capuchas y cuellos envolventes.</p>
+                <div class="quote">"Funcionalidad extrema transformada en alta costura urbana."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHYyJIq61IlBqwEyr63fSnPz_Ry5sfsM3JiYlmVTSw30Z6DohysXqh4N-b-61m9bbwvBNs-kybTfUN-9wzTclKzexqdVQE0uSPaQVTa_6aiUyr8nFYfqHTjh42oHMlDmwDFoMDaIgwM6S8eo0JddlJqLGeTgeHRSNqpjeqdoyo_hoanT0w-i0cI8QNEfUF/s2000/white-mountaineering-fall-winter-2026-paris-fashion-week-005.jpg', 'White Mountaineering Fall Winter 2026')">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHYyJIq61IlBqwEyr63fSnPz_Ry5sfsM3JiYlmVTSw30Z6DohysXqh4N-b-61m9bbwvBNs-kybTfUN-9wzTclKzexqdVQE0uSPaQVTa_6aiUyr8nFYfqHTjh42oHMlDmwDFoMDaIgwM6S8eo0JddlJqLGeTgeHRSNqpjeqdoyo_hoanT0w-i0cI8QNEfUF/s2000/white-mountaineering-fall-winter-2026-paris-fashion-week-005.jpg" alt="White Mountaineering Look 1">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>White Mountaineering</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0038.jpg?w=800', 'KidSuper Men’s Fall 2026 Look 38/42')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0038.jpg?w=800" alt="KidSuper Look 38">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>KidSuper Look 38</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-004_897f85.jpg?w=800', 'Louis Vuitton Men’s Fall 2026 Look 4/80')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-004_897f85.jpg?w=800" alt="Louis Vuitton Look 4">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Louis Vuitton Look 4</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-31.jpg', 'Dolce & Gabbana Fall 2026 Menswear Look 31/100')">
+                        <img src="https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-31.jpg" alt="Dolce & Gabbana Look 31">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Dolce & Gabbana Look 31</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 4: parka -->
+            <div class="card">
+                <h3>parka</h3>
+                <p>Abrigos de gran formato con aislamiento estético, texturas técnicas y siluetas imponentes.</p>
+                <div class="quote">"El refugio definitivo contra el frío con estilo impecable."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://auralee.jp/assets/front/img/collection/2026/AW/look10.jpg', 'Auralee Fall 2026 Menswear Look 10/45')">
+                        <img src="https://auralee.jp/assets/front/img/collection/2026/AW/look10.jpg" alt="Auralee Look 10">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Auralee Look 10</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0057.jpg?w=800', 'Dior Men’s Fall 2026 Look 56/64')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0057.jpg?w=800" alt="Dior Look 56">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>Dior Look 56</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-020.jpg?w=800', 'Hermès Men’s Fall 2026 Look 20/58')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-020.jpg?w=800" alt="Hermès Look 20">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Hermès Look 20</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-049_207907.jpeg?w=800', 'Willy Chavarria Fall 2026 Look 49/85')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-049_207907.jpeg?w=800" alt="Willy Chavarria Look 49">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Willy Chavarria Look 49</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 5: high necked -->
+            <div class="card">
+                <h3>high necked</h3>
+                <p>Cuellos altos que estructuran el rostro y definen una postura imponente y sofisticada.</p>
+                <div class="quote">"La verticalidad y el rigor estético al servicio del cuello."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-012.jpeg?w=800', 'Sacai Men’s Fall 2026 Look 12/74')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-012.jpeg?w=800" alt="Sacai Look 12">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Sacai Look 12</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-024.jpg?w=800', 'Hermès Men’s Fall 2026 Look 24/58')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-024.jpg?w=800" alt="Hermès Look 24">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>Hermès Look 24</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/songzio-fall-26-rtw-men-r-ctsy-021.jpeg?w=800', 'Songzio Fall 2026 Look 21/61')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/songzio-fall-26-rtw-men-r-ctsy-021.jpeg?w=800" alt="Songzio Look 21">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Songzio Look 21</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/023.jpg/_jcr_content/renditions/cq5dam.web.3360.3360.webp', 'Prada Fall 2026 Menswear Look 23/54')">
+                        <img src="https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/023.jpg/_jcr_content/renditions/cq5dam.web.3360.3360.webp" alt="Prada Look 23">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Prada Look 23</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 6: extralong sleeves -->
+            <div class="card">
+                <h3>extralong sleeves</h3>
+                <p>Mangas que rebasan la muñeca de forma fluida aportando dramatismo y displicencia a la silueta.</p>
+                <div class="quote">"El confort relajado expresado a través de proporciones generosas."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-12-dettaglio-03.jpg', 'Dolce & Gabbana FALL 2026 MENSWEAR Look 12/100')">
+                        <img src="https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-12-dettaglio-03.jpg" alt="Dolce & Gabbana Look 12">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Dolce & Gabbana Look 12</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/006.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp', 'Prada FALL 2026 MENSWEAR Look 06/64')">
+                        <img src="https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/006.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp" alt="Prada Look 6">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>Prada Look 06</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-039.jpg?w=800', 'Hermès Men’s Fall 2026 Look 39/58')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-039.jpg?w=800" alt="Hermès Look 39">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Hermès Look 39</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0014.jpg?w=800', 'LGN Louis Gabriel Nouchi Fall 2026 Look 14/40')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0014.jpg?w=800" alt="LGN Look 14">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>LGN Look 14</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 7: embossed leather -->
+            <div class="card">
+                <h3>embossed leather</h3>
+                <p>Piel grabada y texturizada que aporta profundidad táctil y carácter contundente al armario masculino.</p>
+                <div class="quote">"La textura como protagonista absoluta de la declaración de estilo."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-055.jpg?w=800', 'Hermès Men’s Fall 2026 Look 55/58')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-055.jpg?w=800" alt="Hermès Look 55">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Hermès Men’s Fall 2026 Look 55/58</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0012.jpg?w=800', 'KidSuper Men’s Fall 2026 Look 12/42')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0012.jpg?w=800" alt="KidSuper Look 12">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>KidSuper Men’s Fall 2026 Look 12/42</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-038.jpg?w=800', 'Louis Vuitton Men’s Fall 2026 Look 38/80')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-038.jpg?w=800" alt="Louis Vuitton Look 38">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Louis Vuitton Men’s Fall 2026 Look 38/80</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-37-dettaglio-01.jpg', 'Dolce & Gabbana FALL 2026 MENSWEAR Look 37/100')">
+                        <img src="https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-37-dettaglio-01.jpg" alt="Dolce & Gabbana Look 37">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Dolce & Gabbana FALL 2026 MENSWEAR Look 37/100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tendencia 8: retro knit -->
+            <div class="card">
+                <h3>retro knit</h3>
+                <p>Tejidos de punto con patrones nostálgicos y tramas artesanales que evocan memorias vintage renovadas.</p>
+                <div class="quote">"El calor del hogar y la herencia artesanal reinterpretadas."</div>
+                
+                <div class="trend-examples-grid">
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-021.jpeg?w=800', 'Sacai Men’s Fall 2026 Look 21/74')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-021.jpeg?w=800" alt="Sacai Look 21">
+                        <div class="gallery-card-info">
+                            <h4>Look 01</h4>
+                            <p>Sacai Men’s Fall 2026 Look 21/74</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0043.jpg?w=800', 'Dries van Noten Men’s Fall 2026 Look 43/67')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0043.jpg?w=800" alt="Dries van Noten Look 43">
+                        <div class="gallery-card-info">
+                            <h4>Look 02</h4>
+                            <p>Dries van Noten Men’s Fall 2026 Look 43/67</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-068.jpg?w=800', 'Giorgio Armani Men’s Fall 2026 Look 68/136')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-068.jpg?w=800" alt="Giorgio Armani Look 68">
+                        <div class="gallery-card-info">
+                            <h4>Look 03</h4>
+                            <p>Giorgio Armani Men’s Fall 2026 Look 68/136</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0004.jpg?w=800', 'Ralph Lauren Men’s Fall 2026 Look 4/73')">
+                        <img src="https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0004.jpg?w=800" alt="Ralph Lauren Look 4">
+                        <div class="gallery-card-info">
+                            <h4>Look 04</h4>
+                            <p>Ralph Lauren Men’s Fall 2026 Look 4/73</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. PÁGINA INDEPENDIENTE DE GALERÍA -->
+    <div id="galleryPage" class="page-view">
+        <div class="container">
+            <div class="gallery-page-header">
+                <button class="back-btn" onclick="navigateToHome()">← Volver a Colores</button>
+                <h1 class="gallery-page-title" id="pageTitle">Purple Haze</h1>
+            </div>
+
+            <div class="gallery-page-grid" id="pageGalleryContainer"></div>
+        </div>
+    </div>
+
+    <!-- 3. LIGHTBOX CON LUPA DE ZOOM MÓVIL Y TÁCTIL -->
+    <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox(event)">
+        <button class="lightbox-arrow prev" onclick="navigateLightbox(-1, event)">&#10094;</button>
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="closeLightboxDirect()">&times;</button>
+            <div class="img-zoom-container">
+                <img id="lightboxImg" src="" alt="Ampliación de imagen">
+                <div id="zoomLens" class="zoom-lens"></div>
+            </div>
+            <div id="lightboxCaption" class="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-arrow next" onclick="navigateLightbox(1, event)">&#10095;</button>
+    </div>
+
+    <footer>
+        <p>Zara Mexico | Trend Talk Fall/Winter 2026</p>
+    </footer>
+
+    <script>
+        const colorGalleries = {
+            'Purple Haze': [
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0001.jpg?w=1280',
+                    title: 'Dior Men’s Fall 2026 Look 1/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look45.jpg',
+                    title: 'Auralee Men’s Fall 2026 Look 45/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-091.jpg?w=285',
+                    title: 'Giorgio Armani FALL 2026 MENSWEAR Look 91/136',
+                    desc: ''
+                },
+                {
+                    url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/049.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp',
+                    title: 'Prada FALL 2026 MENSWEAR Look 49/54',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-043_e0e321.jpeg?w=285',
+                    title: 'Willy Chavarria Fall 2026 Look 43/85',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0026.jpg?w=800',
+                    title: 'Dries van Noten Men’s Fall 2026 Look 26/67',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/wales-bonner-fall-2026-ctsy-10.jpg?w=800',
+                    title: 'Wales Bonner Fall 2026 Collection Look 10/25',
+                    desc: ''
+                }
+            ],
+            'Sunny Yellow': [
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look26.jpg',
+                    title: 'Auralee FALL 2026 MENSWEAR Look 26/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0039.jpg?w=800',
+                    title: 'Dior Men’s Fall 2026 Look 38/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-019.jpg?w=800',
+                    title: 'Hermès Men’s Fall 2026 Look 19/58',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-011_0a661d.jpeg',
+                    title: 'Willy Chavarria Fall 2026 Look 11/85',
+                    desc: ''
+                },
+                {
+                    url: 'https://tse1.explicit.bing.net/th/id/OIP.RSoG_v7lnfCepI8xzOnL4wHaLH?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+                    title: 'Louis Vuitton Men’s Fall 2026 Collection Look 22/80',
+                    desc: ''
+                },
+                {
+                    url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/016.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp',
+                    title: 'Prada FALL 2026 MENSWEAR Look 16/54',
+                    desc: ''
+                },
+                {
+                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-77.jpg',
+                    title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 77/100',
+                    desc: ''
+                }
+            ],
+            'Berry Red': [
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look22.jpg',
+                    title: 'Auralee FALL 2026 MENSWEAR Look 22/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0032.jpg?w=1280',
+                    title: 'Dior Men’s Fall 2026 Look 31/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-010.jpeg?w=800',
+                    title: 'Sacai Men’s Fall 2026 Look 10/74',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-004.jpeg?w=800',
+                    title: 'Amiri Fall 2026 Look 4/59',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-039.jpg?w=800',
+                    title: 'Louis Vuitton Men’s Fall 2026 Look 39/80',
+                    desc: ''
+                }
+            ],
+            'Olive Green': [
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look23.jpg',
+                    title: 'Auralee FALL 2026 MENSWEAR Look 23/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0049.jpg?w=800',
+                    title: 'Dior Men’s Fall 2026 Look 48/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0027.jpg?w=800',
+                    title: 'KidSuper Men’s Fall 2026 Look 27/42',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0020.jpg?w=800',
+                    title: 'Dries van Noten Men’s Fall 2026 Look 20/67',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-024.jpeg?w=800',
+                    title: 'Amiri Fall 2026 Look 24/59',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-059.jpg?w=800',
+                    title: 'Louis Vuitton Men’s Fall 2026 Look 59/80',
+                    desc: ''
+                }
+            ],
+            'Enhanced Neutrals': [
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look04.jpg',
+                    title: 'Auralee FALL 2026 MENSWEAR Look 04/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0018.jpg?w=800',
+                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 18/40',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/comme-des-garcons-fall-2026-rtw-men-r-gg-0043_a0f61f.jpg?w=800',
+                    title: 'Comme des Garçons Homme Plus Fall 2026 Look 42/42',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-002_5b6c00.jpg?w=800',
+                    title: 'Louis Vuitton Men’s Fall 2026 Look 2/80',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-033.jpg?w=800',
+                    title: 'Giorgio Armani Men’s Fall 2026 Look 33/136',
+                    desc: ''
+                },
+                {
+                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-35.jpg',
+                    title: 'Men\'s Fall/Winter 2026 Look 35/100',
+                    desc: ''
+                }
+            ],
+            'Midnight Blue': [
+                {
+                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look35.jpg',
+                    title: 'Auralee FALL 2026 MENSWEAR Look 35/45',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0020.jpg?w=800',
+                    title: 'Dior Men’s Fall 2026 Look 19/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-067.jpeg?w=800',
+                    title: 'Sacai Men’s Fall 2026 Look 67/74',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-039.jpg?w=800',
+                    title: 'Hermès Men’s Fall 2026 Look 39/58',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0025.jpg?w=800',
+                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 25/40',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-057.jpg?w=800',
+                    title: 'Louis Vuitton Men’s Fall 2026 Look 57/80',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-067.jpg?w=800',
+                    title: 'Giorgio Armani Men’s Fall 2026 Look 67/136',
+                    desc: ''
+                }
+            ],
+            'Black with Black': [
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0004.jpg?w=800',
+                    title: 'Dior Men’s Fall 2026 Look 4/64',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/lanvin-fall-26-rtw-men-r-ctsy-020_dde145.jpeg?w=800',
+                    title: 'Lanvin Fall 2026 Look 20/20',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-013.jpeg?w=800',
+                    title: 'Sacai Men’s Fall 2026 Look 13/74',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-021.jpg?w=800',
+                    title: 'Hermès Men’s Fall 2026 Look 21/58',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0016.jpg?w=800',
+                    title: 'KidSuper Men’s Fall 2026 Look 16/42',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0005.jpg?w=800',
+                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 5/40',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-065_ba88bf.jpeg?w=800',
+                    title: 'Willy Chavarria Fall 2026 Look 65/85',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/junya-watanabe-fall-26-rtw-men-r-dom-017.jpeg?w=800',
+                    title: 'Junya Watanabe Man Men’s Fall 2026 Look 17/44',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/songzio-fall-26-rtw-men-r-ctsy-004.jpeg?w=800',
+                    title: 'Songzio Fall 2026 Look 4/61',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0006.jpg?w=800',
+                    title: 'Dries van Noten Men’s Fall 2026 Look 6/67',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-045.jpeg?w=800',
+                    title: 'Amiri Fall 2026 Look 45/59',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-076.jpg?w=800',
+                    title: 'Louis Vuitton Men’s Fall 2026 Look 76/80',
+                    desc: ''
+                },
+                {
+                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-076.jpg?w=1024',
+                    title: 'Giorgio Armani Men’s Fall 2026 Look 76/136',
+                    desc: ''
+                },
+                {
+                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-15.jpg',
+                    title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 15/100',
+                    desc: ''
+                }
+            ]
+        };
+
+        let currentActiveColor = '';
+        let currentImageIndex = 0;
+        let isZoomActive = false;
+        const zoomRatio = 2.5;
+
+        function navigateToGallery(colorName) {
+            currentActiveColor = colorName;
+            document.getElementById('homePage').classList.remove('active');
+            document.getElementById('galleryPage').classList.add('active');
+            
+            document.getElementById('pageTitle').innerText = colorName;
+            const container = document.getElementById('pageGalleryContainer');
+            container.innerHTML = '';
+
+            const items = colorGalleries[colorName] || [];
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+                card.onclick = function() { openLightbox(index); };
+                card.innerHTML = `
+                    <img src="${item.url}" alt="${item.title}">
+                    <div class="gallery-card-info">
+                        <h4>${item.title}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateToHome() {
+            document.getElementById('galleryPage').classList.remove('active');
+            document.getElementById('homePage').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateLightboxImage() {
+            disableZoom();
+            const items = colorGalleries[currentActiveColor] || [];
+            if (items.length === 0) return;
+
+            const item = items[currentImageIndex];
+            const imgEl = document.getElementById('lightboxImg');
+            imgEl.src = item.url;
+            document.getElementById('lightboxCaption').innerText = item.desc ? `${item.title} - ${item.desc}` : item.title;
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+
+        function openGlobalLightbox(url, title) {
+            currentActiveColor = '';
+            disableZoom();
+            const imgEl = document.getElementById('lightboxImg');
+            imgEl.src = url;
+            document.getElementById('lightboxCaption').innerText = title;
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+
+        function navigateLightbox(direction, event) {
+            if (event) event.stopPropagation();
+            if (!currentActiveColor) return;
+            const items = colorGalleries[currentActiveColor] || [];
+            if (items.length === 0) return;
+
+            currentImageIndex = (currentImageIndex + direction + items.length) % items.length;
+            updateLightboxImage();
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightboxModal') {
+                closeLightboxDirect();
+            }
+        }
+
+        function closeLightboxDirect() {
+            disableZoom();
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+
+        /* LÓGICA DE LA LUPA INTERACTIVA (CLICK Y SEGUIMIENTO TÁCTIL) */
+        const imgEl = document.getElementById('lightboxImg');
+        const lens = document.getElementById('zoomLens');
+
+        imgEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleZoom(e);
+        });
+
+        function toggleZoom(e) {
+            if (isZoomActive) {
+                disableZoom();
+            } else {
+                enableZoom(e);
+            }
+        }
+
+        function enableZoom(e) {
+            isZoomActive = true;
+            lens.style.display = 'block';
+            lens.style.backgroundImage = `url('${imgEl.src}')`;
+            
+            const rect = imgEl.getBoundingClientRect();
+            lens.style.backgroundSize = `${rect.width * zoomRatio}px ${rect.height * zoomRatio}px`;
+
+            moveLens(e);
+        }
+
+        function disableZoom() {
+            isZoomActive = false;
+            if (lens) lens.style.display = 'none';
+        }
+
+        imgEl.addEventListener('mousemove', moveLens);
+        imgEl.addEventListener('touchmove', function(e) {
+            if (isZoomActive) {
+                e.preventDefault();
+                moveLens(e.touches[0]);
+            }
+        }, { passive: false });
+
+        function moveLens(e) {
+            if (!isZoomActive) return;
+
+            const rect = imgEl.getBoundingClientRect();
+            
+            let pageX = e.pageX || (e.touches && e.touches[0].pageX);
+            let pageY = e.pageY || (e.touches && e.touches[0].pageY);
+
+            let x = pageX - (rect.left + window.scrollX);
+            let y = pageY - (rect.top + window.scrollY);
+
+            if (x > rect.width) x = rect.width;
+            if (x < 0) x = 0;
+            if (y > rect.height) y = rect.height;
+            if (y < 0) y = 0;
+
+            const lensW = lens.offsetWidth / 2;
+            const lensH = lens.offsetHeight / 2;
+
+            lens.style.left = `${x - lensW + (imgEl.offsetLeft)}px`;
+            lens.style.top = `${y - lensH + (imgEl.offsetTop)}px`;
+
+            const bgX = (x * zoomRatio) - lensW;
+            const bgY = (y * zoomRatio) - lensH;
+
+            lens.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+        }
+
+        /* NAVEGACIÓN MEDIANTE TECLADO (FLECHAS IZQ/DER Y ESC) */
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('lightboxModal');
+            if (modal.classList.contains('active')) {
+                if (event.key === 'ArrowLeft') {
+                    navigateLightbox(-1);
+                } else if (event.key === 'ArrowRight') {
+                    navigateLightbox(1);
+                } else if (event.key === 'Escape') {
+                    closeLightboxDirect();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
