@@ -1,0 +1,2 @@
+# THE-TREND-TALK
+mantrends
