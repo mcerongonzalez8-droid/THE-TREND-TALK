@@ -1181,17 +1181,20 @@
         let isZoomActive = false;
         const zoomRatio = 2.5;
 
-        // FUNCIÓN PARA NAVEGAR A LA GALERÍA (PUSH STATE)
+        // INICIALIZAR ESTADO BASE AL CARGAR LA PÁGINA
+        window.addEventListener('DOMContentLoaded', () => {
+            // Reemplazamos el estado inicial en el historial para que Android sepa que esta es la base
+            history.replaceState({ view: 'home' }, '', window.location.pathname);
+        });
+
+        // NAVEGAR A LA GALERÍA Y CREAR ENTRADA EN HISTORIAL
         function navigateToGallery(colorName) {
             currentActiveColor = colorName;
-            
-            // Añadimos un estado al historial del navegador móvil
             history.pushState({ view: 'gallery', color: colorName }, '', `#${colorName.toLowerCase().replace(/\s+/g, '-')}`);
-            
             renderGalleryView(colorName);
         }
 
-        // RENDERIZAR LA VISTA DE GALERÍA
+        // RENDERIZAR VISTA DE GALERÍA
         function renderGalleryView(colorName) {
             document.getElementById('homePage').classList.remove('active');
             document.getElementById('galleryPage').classList.add('active');
@@ -1218,14 +1221,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // FUNCIÓN PARA REGRESAR A LA HOME (REPLACE STATE O BACK)
+        // BOTÓN DE REGRESAR INTERNO
         function navigateToHome() {
             history.back();
         }
 
-        // ESCUCHADOR DE HISTORIAL: Detecta el botón de "Regresar" de iPhone o Android
+        // CONTROLADOR GLOBAL DE BOTÓN ATRÁS (ANDROID / IPHONE / GESTOS)
         window.addEventListener('popstate', function(event) {
-            // Si el lightbox está abierto, ciérralo primero en lugar de cambiar de vista
             const modal = document.getElementById('lightboxModal');
             if (modal.classList.contains('active')) {
                 closeLightboxDirect();
@@ -1235,7 +1237,7 @@
             if (event.state && event.state.view === 'gallery') {
                 renderGalleryView(event.state.color);
             } else {
-                // Volver a la página principal de forma fluida
+                // Volver de forma segura a la home sin salir de la app web
                 document.getElementById('galleryPage').classList.remove('active');
                 document.getElementById('homePage').classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
