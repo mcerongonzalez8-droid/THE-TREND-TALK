@@ -43,6 +43,36 @@
             display: block;
         }
 
+        /* BOTÓN FLOTANTE DE PANTALLA COMPLETA PARA ANDROID */
+        #fullscreenBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #fullscreenBtn:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
         /* ENCABEZADO CON DIFUMINADO SUAVE EN EL BORDE INFERIOR */
         header {
             width: 100%;
@@ -466,6 +496,11 @@
 </head>
 <body>
 
+    <!-- BOTÓN FLOTANTE DE PANTALLA COMPLETA PARA EVITAR SALIDAS ACCIDENTALES EN ANDROID -->
+    <button id="fullscreenBtn" onclick="requestFullscreen()">
+        <span>⚡ Pantalla Completa</span>
+    </button>
+
     <!-- 1. PÁGINA PRINCIPAL -->
     <div id="homePage" class="page-view active">
         <header>
@@ -874,6 +909,24 @@
     </footer>
 
     <script>
+        /* FUNCIÓN DE PANTALLA COMPLETA PARA ANDROID */
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari / Android Chrome */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+            // Cambia el texto del botón al activarlo para indicar que está activo
+            const btn = document.getElementById('fullscreenBtn');
+            btn.innerHTML = '<span>✓ Modo Inmersivo</span>';
+            setTimeout(() => {
+                btn.style.opacity = '0.4'; // Se desvanece un poco para no estorbar la vista editorial
+            }, 1000);
+        }
+
         /* BLOQUEO ABSOLUTO DE ZOOM POR PELLIZCO Y DOBLE TOQUE */
         document.addEventListener('touchstart', function (e) {
             if (e.touches.length > 1) {
@@ -962,16 +1015,6 @@
         let currentActiveColor = '';
         let currentImageIndex = 0;
 
-        /* RETENCIÓN DE HISTORIAL EN ANDROID / MÓVIL (EVITA SALIR DE LA WEB) */
-        function pushProtectionState() {
-            history.pushState({ view: 'home_protected' }, '', window.location.pathname);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            pushProtectionState();
-            pushProtectionState(); // Doble capa inicial para asegurar captura del botón físico
-        });
-
         // NAVEGAR A LA GALERÍA
         function navigateToGallery(colorName) {
             currentActiveColor = colorName;
@@ -1025,11 +1068,10 @@
             if (event.state && event.state.view === 'gallery') {
                 renderGalleryView(event.state.color);
             } else {
-                // 3. Si está en la Home, muestra la vista Home y reinyecta protección para no salir del sitio
+                // 3. Si está en la Home, muestra la vista Home
                 document.getElementById('galleryPage').classList.remove('active');
                 document.getElementById('homePage').classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                pushProtectionState(); // Vuelve a inyectar estado para bloquear la salida
             }
         });
 
