@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bloqueo estricto de zoom en móviles para evitar que los usuarios se queden atorados -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>THE TREND TALK | FW26 - Mariana</title>
     <!-- Google Fonts: Cinzel para estética Zara Editorial y Montserrat para lectura limpia -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,6 +23,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            touch-action: pan-x pan-y; /* Previene gestos de zoom indeseados en el cuerpo */
         }
 
         /* VISTAS DE PÁGINA (SPA) */
@@ -301,7 +303,7 @@
             }
         }
 
-        /* LIGHTBOX CON LUPA DE ZOOM MÓVIL Y TÁCTIL */
+        /* LIGHTBOX LIMPIO (SIN LUPA MOLESTA, VISUALIZACIÓN CLARA Y RÁPIDA) */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -309,7 +311,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.92);
+            background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(8px);
             z-index: 3000;
             justify-content: center;
@@ -325,23 +327,13 @@
 
         .lightbox-content {
             position: relative;
-            width: 75vw;
-            max-width: 700px;
+            width: 80vw;
+            max-width: 650px;
             height: 75vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        .img-zoom-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
         }
 
         .lightbox-content img {
@@ -352,30 +344,13 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             background-color: #1a0204;
-            cursor: zoom-in;
-            touch-action: none;
-        }
-
-        /* LUPA INTERACTIVA DE ZOOM DE ALTA DEFINICIÓN */
-        .zoom-lens {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border: 2px solid var(--accent-color);
-            border-radius: 50%;
-            cursor: none;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
-            display: none;
-            pointer-events: none;
-            background-repeat: no-repeat;
-            z-index: 3020;
         }
 
         .lightbox-caption {
             margin-top: 1rem;
             color: var(--accent-color);
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             text-align: center;
@@ -425,29 +400,25 @@
         }
 
         .lightbox-arrow.prev {
-            left: 20px;
+            left: 15px;
         }
 
         .lightbox-arrow.next {
-            right: 20px;
+            right: 15px;
         }
 
         @media (max-width: 600px) {
             .lightbox-content {
-                width: 90vw;
+                width: 92vw;
                 height: 65vh;
-            }
-            .zoom-lens {
-                width: 120px;
-                height: 120px;
             }
             .lightbox-arrow {
                 width: 40px;
                 height: 40px;
                 font-size: 1.5rem;
             }
-            .lightbox-arrow.prev { left: 8px; }
-            .lightbox-arrow.next { right: 8px; }
+            .lightbox-arrow.prev { left: 5px; }
+            .lightbox-arrow.next { right: 5px; }
         }
 
         .card {
@@ -880,15 +851,12 @@
         </div>
     </div>
 
-    <!-- 3. LIGHTBOX CON LUPA DE ZOOM MÓVIL Y TÁCTIL -->
+    <!-- 3. LIGHTBOX LIMPIO -->
     <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox(event)">
         <button class="lightbox-arrow prev" onclick="navigateLightbox(-1, event)">&#10094;</button>
         <div class="lightbox-content" onclick="event.stopPropagation()">
             <button class="lightbox-close" onclick="closeLightboxDirect()">&times;</button>
-            <div class="img-zoom-container">
-                <img id="lightboxImg" src="" alt="Ampliación de imagen">
-                <div id="zoomLens" class="zoom-lens"></div>
-            </div>
+            <img id="lightboxImg" src="" alt="Ampliación de imagen">
             <div id="lightboxCaption" class="lightbox-caption"></div>
         </div>
         <button class="lightbox-arrow next" onclick="navigateLightbox(1, event)">&#10095;</button>
@@ -1178,16 +1146,13 @@
 
         let currentActiveColor = '';
         let currentImageIndex = 0;
-        let isZoomActive = false;
-        const zoomRatio = 2.5;
 
         // INICIALIZAR ESTADO BASE AL CARGAR LA PÁGINA
         window.addEventListener('DOMContentLoaded', () => {
-            // Reemplazamos el estado inicial en el historial para que Android sepa que esta es la base
             history.replaceState({ view: 'home' }, '', window.location.pathname);
         });
 
-        // NAVEGAR A LA GALERÍA Y CREAR ENTRADA EN HISTORIAL
+        // NAVEGAR A LA GALERÍA DESDE LA HOME
         function navigateToGallery(colorName) {
             currentActiveColor = colorName;
             history.pushState({ view: 'gallery', color: colorName }, '', `#${colorName.toLowerCase().replace(/\s+/g, '-')}`);
@@ -1221,23 +1186,25 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // BOTÓN DE REGRESAR INTERNO
+        // BOTÓN FÍSICO / VIRTUAL DE REGRESAR EN GALERÍA
         function navigateToHome() {
             history.back();
         }
 
-        // CONTROLADOR GLOBAL DE BOTÓN ATRÁS (ANDROID / IPHONE / GESTOS)
+        // CONTROLADOR DE HISTORIAL (BOTÓN ATRÁS DEL TELÉFONO O GESTOS)
         window.addEventListener('popstate', function(event) {
             const modal = document.getElementById('lightboxModal');
+            
+            // Si el visor de foto está abierto, ciérralo primero devolviendo a la galería
             if (modal.classList.contains('active')) {
-                closeLightboxDirect();
+                modal.classList.remove('active');
                 return;
             }
 
             if (event.state && event.state.view === 'gallery') {
                 renderGalleryView(event.state.color);
             } else {
-                // Volver de forma segura a la home sin salir de la app web
+                // Volver de forma limpia a la página principal
                 document.getElementById('galleryPage').classList.remove('active');
                 document.getElementById('homePage').classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1245,7 +1212,6 @@
         });
 
         function updateLightboxImage() {
-            disableZoom();
             const items = colorGalleries[currentActiveColor] || [];
             if (items.length === 0) return;
 
@@ -1258,15 +1224,17 @@
         function openLightbox(index) {
             currentImageIndex = index;
             updateLightboxImage();
+            // Empujamos estado al historial para que el botón "Atrás" cierre la foto
+            history.pushState({ view: 'lightbox' }, '');
             document.getElementById('lightboxModal').classList.add('active');
         }
 
         function openGlobalLightbox(url, title) {
             currentActiveColor = '';
-            disableZoom();
             const imgEl = document.getElementById('lightboxImg');
             imgEl.src = url;
             document.getElementById('lightboxCaption').innerText = title;
+            history.pushState({ view: 'lightbox' }, '');
             document.getElementById('lightboxModal').classList.add('active');
         }
 
@@ -1282,97 +1250,13 @@
 
         function closeLightbox(event) {
             if (event.target.id === 'lightboxModal') {
-                closeLightboxDirect();
+                history.back(); // Regresa en el historial para cerrar ordenadamente
             }
         }
 
         function closeLightboxDirect() {
-            disableZoom();
-            document.getElementById('lightboxModal').classList.remove('active');
+            history.back();
         }
-
-        /* LÓGICA DE LA LUPA INTERACTIVA (CLICK Y SEGUIMIENTO TÁCTIL) */
-        const imgEl = document.getElementById('lightboxImg');
-        const lens = document.getElementById('zoomLens');
-
-        imgEl.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleZoom(e);
-        });
-
-        function toggleZoom(e) {
-            if (isZoomActive) {
-                disableZoom();
-            } else {
-                enableZoom(e);
-            }
-        }
-
-        function enableZoom(e) {
-            isZoomActive = true;
-            lens.style.display = 'block';
-            lens.style.backgroundImage = `url('${imgEl.src}')`;
-            
-            const rect = imgEl.getBoundingClientRect();
-            lens.style.backgroundSize = `${rect.width * zoomRatio}px ${rect.height * zoomRatio}px`;
-
-            moveLens(e);
-        }
-
-        function disableZoom() {
-            isZoomActive = false;
-            if (lens) lens.style.display = 'none';
-        }
-
-        imgEl.addEventListener('mousemove', moveLens);
-        imgEl.addEventListener('touchmove', function(e) {
-            if (isZoomActive) {
-                e.preventDefault();
-                moveLens(e.touches[0]);
-            }
-        }, { passive: false });
-
-        function moveLens(e) {
-            if (!isZoomActive) return;
-
-            const rect = imgEl.getBoundingClientRect();
-            
-            let pageX = e.pageX || (e.touches && e.touches[0].pageX);
-            let pageY = e.pageY || (e.touches && e.touches[0].pageY);
-
-            let x = pageX - (rect.left + window.scrollX);
-            let y = pageY - (rect.top + window.scrollY);
-
-            if (x > rect.width) x = rect.width;
-            if (x < 0) x = 0;
-            if (y > rect.height) y = rect.height;
-            if (y < 0) y = 0;
-
-            const lensW = lens.offsetWidth / 2;
-            const lensH = lens.offsetHeight / 2;
-
-            lens.style.left = `${x - lensW + (imgEl.offsetLeft)}px`;
-            lens.style.top = `${y - lensH + (imgEl.offsetTop)}px`;
-
-            const bgX = (x * zoomRatio) - lensW;
-            const bgY = (y * zoomRatio) - lensH;
-
-            lens.style.backgroundPosition = `-${bgX}px -${bgY}px`;
-        }
-
-        /* NAVEGACIÓN MEDIANTE TECLADO (FLECHAS IZQ/DER Y ESC) */
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('lightboxModal');
-            if (modal.classList.contains('active')) {
-                if (event.key === 'ArrowLeft') {
-                    navigateLightbox(-1);
-                } else if (event.key === 'ArrowRight') {
-                    navigateLightbox(1);
-                } else if (event.key === 'Escape') {
-                    closeLightboxDirect();
-                }
-            }
-        });
     </script>
 
 </body>
