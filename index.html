@@ -969,7 +969,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             pushProtectionState();
-            pushProtectionState(); // Doble capa inicial
+            pushProtectionState(); // Doble capa inicial para asegurar captura del botón físico
         });
 
         // NAVEGAR A LA GALERÍA
@@ -1029,7 +1029,7 @@
                 document.getElementById('galleryPage').classList.remove('active');
                 document.getElementById('homePage').classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                pushProtectionState(); // Bloquea la salida
+                pushProtectionState(); // Vuelve a inyectar estado para bloquear la salida
             }
         });
 
