@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Bloqueo estricto de zoom en móviles para evitar que los usuarios se queden atorados -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Bloqueo estricto de zoom mediante Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>THE TREND TALK | FW26 - Mariana</title>
     <!-- Google Fonts: Cinzel para estética Zara Editorial y Montserrat para lectura limpia -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -16,6 +16,14 @@
             --border-color: #52121A;
         }
 
+        /* INHIBIR ZOOM POR DOBLE TAP Y GESTOS TÁCTILES */
+        html, body {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-color);
@@ -23,7 +31,6 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            touch-action: pan-x pan-y; /* Previene gestos de zoom indeseados en el cuerpo */
         }
 
         /* VISTAS DE PÁGINA (SPA) */
@@ -303,7 +310,7 @@
             }
         }
 
-        /* LIGHTBOX LIMPIO (SIN LUPA MOLESTA, VISUALIZACIÓN CLARA Y RÁPIDA) */
+        /* LIGHTBOX LIMPIO */
         .lightbox-modal {
             display: none;
             position: fixed;
@@ -809,28 +816,28 @@
                         <img src="https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-021.jpeg?w=800" alt="Sacai Look 21">
                         <div class="gallery-card-info">
                             <h4>Look 01</h4>
-                            <p>Sacai Men’s Fall 2026 Look 21/74</p>
+                            <p>Sacai Look 21</p>
                         </div>
                     </div>
                     <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0043.jpg?w=800', 'Dries van Noten Men’s Fall 2026 Look 43/67')">
                         <img src="https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0043.jpg?w=800" alt="Dries van Noten Look 43">
                         <div class="gallery-card-info">
                             <h4>Look 02</h4>
-                            <p>Dries van Noten Men’s Fall 2026 Look 43/67</p>
+                            <p>Dries van Noten Look 43</p>
                         </div>
                     </div>
                     <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-068.jpg?w=800', 'Giorgio Armani Men’s Fall 2026 Look 68/136')">
                         <img src="https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-068.jpg?w=800" alt="Giorgio Armani Look 68">
                         <div class="gallery-card-info">
                             <h4>Look 03</h4>
-                            <p>Giorgio Armani Men’s Fall 2026 Look 68/136</p>
+                            <p>Giorgio Armani Look 68</p>
                         </div>
                     </div>
                     <div class="gallery-card" onclick="openGlobalLightbox('https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0004.jpg?w=800', 'Ralph Lauren Men’s Fall 2026 Look 4/73')">
                         <img src="https://wwd.com/wp-content/uploads/2026/01/ralph-lauren-fw26-men-rtw-r-gg-0004.jpg?w=800" alt="Ralph Lauren Look 4">
                         <div class="gallery-card-info">
                             <h4>Look 04</h4>
-                            <p>Ralph Lauren Men’s Fall 2026 Look 4/73</p>
+                            <p>Ralph Lauren Look 4</p>
                         </div>
                     </div>
                 </div>
@@ -867,6 +874,22 @@
     </footer>
 
     <script>
+        /* BLOQUEO ABSOLUTO DE ZOOM POR PELLIZCO Y DOBLE TOQUE EN CUALQUIER DISPOSITIVO */
+        document.addEventListener('touchstart', function (e) {
+            if (e.touches.length > 1) {
+                e.preventDefault(); // Bloquea pellizco (multi-touch)
+            }
+        }, { passive: false });
+
+        let lastTouchTime = 0;
+        document.addEventListener('touchend', function (e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchTime <= 300) {
+                e.preventDefault(); // Bloquea doble tap
+            }
+            lastTouchTime = now;
+        }, false);
+
         const colorGalleries = {
             'Purple Haze': [
                 {
@@ -1224,7 +1247,6 @@
         function openLightbox(index) {
             currentImageIndex = index;
             updateLightboxImage();
-            // Empujamos estado al historial para que el botón "Atrás" cierre la foto
             history.pushState({ view: 'lightbox' }, '');
             document.getElementById('lightboxModal').classList.add('active');
         }
@@ -1250,7 +1272,7 @@
 
         function closeLightbox(event) {
             if (event.target.id === 'lightboxModal') {
-                history.back(); // Regresa en el historial para cerrar ordenadamente
+                history.back();
             }
         }
 
