@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Bloqueo estricto de zoom mediante Viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <!-- Bloqueo de zoom en Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>THE TREND TALK | FW26 - Mariana</title>
     <!-- Google Fonts: Cinzel para estética Zara Editorial y Montserrat para lectura limpia -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -874,10 +874,10 @@
     </footer>
 
     <script>
-        /* BLOQUEO ABSOLUTO DE ZOOM POR PELLIZCO Y DOBLE TOQUE EN CUALQUIER DISPOSITIVO */
+        /* BLOQUEO ABSOLUTO DE ZOOM POR PELLIZCO Y DOBLE TOQUE */
         document.addEventListener('touchstart', function (e) {
             if (e.touches.length > 1) {
-                e.preventDefault(); // Bloquea pellizco (multi-touch)
+                e.preventDefault();
             }
         }, { passive: false });
 
@@ -885,297 +885,94 @@
         document.addEventListener('touchend', function (e) {
             const now = (new Date()).getTime();
             if (now - lastTouchTime <= 300) {
-                e.preventDefault(); // Bloquea doble tap
+                e.preventDefault();
             }
             lastTouchTime = now;
         }, false);
 
         const colorGalleries = {
             'Purple Haze': [
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0001.jpg?w=1280',
-                    title: 'Dior Men’s Fall 2026 Look 1/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look45.jpg',
-                    title: 'Auralee Men’s Fall 2026 Look 45/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-091.jpg?w=285',
-                    title: 'Giorgio Armani FALL 2026 MENSWEAR Look 91/136',
-                    desc: ''
-                },
-                {
-                    url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/049.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp',
-                    title: 'Prada FALL 2026 MENSWEAR Look 49/54',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-043_e0e321.jpeg?w=285',
-                    title: 'Willy Chavarria Fall 2026 Look 43/85',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0026.jpg?w=800',
-                    title: 'Dries van Noten Men’s Fall 2026 Look 26/67',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/wales-bonner-fall-2026-ctsy-10.jpg?w=800',
-                    title: 'Wales Bonner Fall 2026 Collection Look 10/25',
-                    desc: ''
-                }
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0001.jpg?w=1280', title: 'Dior Men’s Fall 2026 Look 1/64', desc: '' },
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look45.jpg', title: 'Auralee Men’s Fall 2026 Look 45/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-091.jpg?w=285', title: 'Giorgio Armani FALL 2026 MENSWEAR Look 91/136', desc: '' },
+                { url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/049.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp', title: 'Prada FALL 2026 MENSWEAR Look 49/54', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-043_e0e321.jpeg?w=285', title: 'Willy Chavarria Fall 2026 Look 43/85', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0026.jpg?w=800', title: 'Dries van Noten Men’s Fall 2026 Look 26/67', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/wales-bonner-fall-2026-ctsy-10.jpg?w=800', title: 'Wales Bonner Fall 2026 Collection Look 10/25', desc: '' }
             ],
             'Sunny Yellow': [
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look26.jpg',
-                    title: 'Auralee FALL 2026 MENSWEAR Look 26/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0039.jpg?w=800',
-                    title: 'Dior Men’s Fall 2026 Look 38/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-019.jpg?w=800',
-                    title: 'Hermès Men’s Fall 2026 Look 19/58',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-011_0a661d.jpeg',
-                    title: 'Willy Chavarria Fall 2026 Look 11/85',
-                    desc: ''
-                },
-                {
-                    url: 'https://tse1.explicit.bing.net/th/id/OIP.RSoG_v7lnfCepI8xzOnL4wHaLH?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
-                    title: 'Louis Vuitton Men’s Fall 2026 Collection Look 22/80',
-                    desc: ''
-                },
-                {
-                    url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/016.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp',
-                    title: 'Prada FALL 2026 MENSWEAR Look 16/54',
-                    desc: ''
-                },
-                {
-                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-77.jpg',
-                    title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 77/100',
-                    desc: ''
-                }
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look26.jpg', title: 'Auralee FALL 2026 MENSWEAR Look 26/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0039.jpg?w=800', title: 'Dior Men’s Fall 2026 Look 38/64', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-019.jpg?w=800', title: 'Hermès Men’s Fall 2026 Look 19/58', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-011_0a661d.jpeg', title: 'Willy Chavarria Fall 2026 Look 11/85', desc: '' },
+                { url: 'https://tse1.explicit.bing.net/th/id/OIP.RSoG_v7lnfCepI8xzOnL4wHaLH?r=0&rs=1&pid=ImgDetMain&o=7&rm=3', title: 'Louis Vuitton Men’s Fall 2026 Collection Look 22/80', desc: '' },
+                { url: 'https://www.prada.com/content/dam/pradanux/pradasphere/2026/fashion_shows/fw26-menswear/look/016.jpg/_jcr_content/renditions/cq5dam.web.1680.1680.webp', title: 'Prada FALL 2026 MENSWEAR Look 16/54', desc: '' },
+                { url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-77.jpg', title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 77/100', desc: '' }
             ],
             'Berry Red': [
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look22.jpg',
-                    title: 'Auralee FALL 2026 MENSWEAR Look 22/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0032.jpg?w=1280',
-                    title: 'Dior Men’s Fall 2026 Look 31/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-010.jpeg?w=800',
-                    title: 'Sacai Men’s Fall 2026 Look 10/74',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-004.jpeg?w=800',
-                    title: 'Amiri Fall 2026 Look 4/59',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-039.jpg?w=800',
-                    title: 'Louis Vuitton Men’s Fall 2026 Look 39/80',
-                    desc: ''
-                }
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look22.jpg', title: 'Auralee FALL 2026 MENSWEAR Look 22/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0032.jpg?w=1280', title: 'Dior Men’s Fall 2026 Look 31/64', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-010.jpeg?w=800', title: 'Sacai Men’s Fall 2026 Look 10/74', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-004.jpeg?w=800', title: 'Amiri Fall 2026 Look 4/59', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-039.jpg?w=800', title: 'Louis Vuitton Men’s Fall 2026 Look 39/80', desc: '' }
             ],
             'Olive Green': [
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look23.jpg',
-                    title: 'Auralee FALL 2026 MENSWEAR Look 23/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0049.jpg?w=800',
-                    title: 'Dior Men’s Fall 2026 Look 48/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0027.jpg?w=800',
-                    title: 'KidSuper Men’s Fall 2026 Look 27/42',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0020.jpg?w=800',
-                    title: 'Dries van Noten Men’s Fall 2026 Look 20/67',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-024.jpeg?w=800',
-                    title: 'Amiri Fall 2026 Look 24/59',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-059.jpg?w=800',
-                    title: 'Louis Vuitton Men’s Fall 2026 Look 59/80',
-                    desc: ''
-                }
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look23.jpg', title: 'Auralee FALL 2026 MENSWEAR Look 23/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0049.jpg?w=800', title: 'Dior Men’s Fall 2026 Look 48/64', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0027.jpg?w=800', title: 'KidSuper Men’s Fall 2026 Look 27/42', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0020.jpg?w=800', title: 'Dries van Noten Men’s Fall 2026 Look 20/67', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-024.jpeg?w=800', title: 'Amiri Fall 2026 Look 24/59', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-059.jpg?w=800', title: 'Louis Vuitton Men’s Fall 2026 Look 59/80', desc: '' }
             ],
             'Enhanced Neutrals': [
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look04.jpg',
-                    title: 'Auralee FALL 2026 MENSWEAR Look 04/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0018.jpg?w=800',
-                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 18/40',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/comme-des-garcons-fall-2026-rtw-men-r-gg-0043_a0f61f.jpg?w=800',
-                    title: 'Comme des Garçons Homme Plus Fall 2026 Look 42/42',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-002_5b6c00.jpg?w=800',
-                    title: 'Louis Vuitton Men’s Fall 2026 Look 2/80',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-033.jpg?w=800',
-                    title: 'Giorgio Armani Men’s Fall 2026 Look 33/136',
-                    desc: ''
-                },
-                {
-                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-35.jpg',
-                    title: 'Men\'s Fall/Winter 2026 Look 35/100',
-                    desc: ''
-                }
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look04.jpg', title: 'Auralee FALL 2026 MENSWEAR Look 04/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0018.jpg?w=800', title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 18/40', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/comme-des-garcons-fall-2026-rtw-men-r-gg-0043_a0f61f.jpg?w=800', title: 'Comme des Garçons Homme Plus Fall 2026 Look 42/42', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-002_5b6c00.jpg?w=800', title: 'Louis Vuitton Men’s Fall 2026 Look 2/80', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-033.jpg?w=800', title: 'Giorgio Armani Men’s Fall 2026 Look 33/136', desc: '' },
+                { url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-35.jpg', title: 'Men\'s Fall/Winter 2026 Look 35/100', desc: '' }
             ],
             'Midnight Blue': [
-                {
-                    url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look35.jpg',
-                    title: 'Auralee FALL 2026 MENSWEAR Look 35/45',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0020.jpg?w=800',
-                    title: 'Dior Men’s Fall 2026 Look 19/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-067.jpeg?w=800',
-                    title: 'Sacai Men’s Fall 2026 Look 67/74',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-039.jpg?w=800',
-                    title: 'Hermès Men’s Fall 2026 Look 39/58',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0025.jpg?w=800',
-                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 25/40',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-057.jpg?w=800',
-                    title: 'Louis Vuitton Men’s Fall 2026 Look 57/80',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-067.jpg?w=800',
-                    title: 'Giorgio Armani Men’s Fall 2026 Look 67/136',
-                    desc: ''
-                }
+                { url: 'https://auralee.jp/assets/front/img/collection/2026/AW/look35.jpg', title: 'Auralee FALL 2026 MENSWEAR Look 35/45', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0020.jpg?w=800', title: 'Dior Men’s Fall 2026 Look 19/64', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-067.jpeg?w=800', title: 'Sacai Men’s Fall 2026 Look 67/74', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-039.jpg?w=800', title: 'Hermès Men’s Fall 2026 Look 39/58', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0025.jpg?w=800', title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 25/40', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-057.jpg?w=800', title: 'Louis Vuitton Men’s Fall 2026 Look 57/80', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-067.jpg?w=800', title: 'Giorgio Armani Men’s Fall 2026 Look 67/136', desc: '' }
             ],
             'Black with Black': [
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0004.jpg?w=800',
-                    title: 'Dior Men’s Fall 2026 Look 4/64',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/lanvin-fall-26-rtw-men-r-ctsy-020_dde145.jpeg?w=800',
-                    title: 'Lanvin Fall 2026 Look 20/20',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-013.jpeg?w=800',
-                    title: 'Sacai Men’s Fall 2026 Look 13/74',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-021.jpg?w=800',
-                    title: 'Hermès Men’s Fall 2026 Look 21/58',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0016.jpg?w=800',
-                    title: 'KidSuper Men’s Fall 2026 Look 16/42',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0005.jpg?w=800',
-                    title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 5/40',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-065_ba88bf.jpeg?w=800',
-                    title: 'Willy Chavarria Fall 2026 Look 65/85',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/junya-watanabe-fall-26-rtw-men-r-dom-017.jpeg?w=800',
-                    title: 'Junya Watanabe Man Men’s Fall 2026 Look 17/44',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/songzio-fall-26-rtw-men-r-ctsy-004.jpeg?w=800',
-                    title: 'Songzio Fall 2026 Look 4/61',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0006.jpg?w=800',
-                    title: 'Dries van Noten Men’s Fall 2026 Look 6/67',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-045.jpeg?w=800',
-                    title: 'Amiri Fall 2026 Look 45/59',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-076.jpg?w=800',
-                    title: 'Louis Vuitton Men’s Fall 2026 Look 76/80',
-                    desc: ''
-                },
-                {
-                    url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-076.jpg?w=1024',
-                    title: 'Giorgio Armani Men’s Fall 2026 Look 76/136',
-                    desc: ''
-                },
-                {
-                    url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-15.jpg',
-                    title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 15/100',
-                    desc: ''
-                }
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dior-fall-2026-rtw-men-r-gg-0004.jpg?w=800', title: 'Dior Men’s Fall 2026 Look 4/64', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/lanvin-fall-26-rtw-men-r-ctsy-020_dde145.jpeg?w=800', title: 'Lanvin Fall 2026 Look 20/20', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/sacai-fall-26-rtw-men-r-dom-013.jpeg?w=800', title: 'Sacai Men’s Fall 2026 Look 13/74', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/hermes-paris-fw26-men-rtw-r-gg-021.jpg?w=800', title: 'Hermès Men’s Fall 2026 Look 21/58', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/kidsuper-fall-men-rtw-2026-r-ctsy-0016.jpg?w=800', title: 'KidSuper Men’s Fall 2026 Look 16/42', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/lng-louis-gabriel-nouchi-fw26-men-rtw-r-ctsy-0005.jpg?w=800', title: 'LGN Louis Gabriel Nouchi Fall 2026 Look 5/40', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/willy-chavarria-fall-26-rtw-men-r-gg-065_ba88bf.jpeg?w=800', title: 'Willy Chavarria Fall 2026 Look 65/85', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/junya-watanabe-fall-26-rtw-men-r-dom-017.jpeg?w=800', title: 'Junya Watanabe Man Men’s Fall 2026 Look 17/44', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/songzio-fall-26-rtw-men-r-ctsy-004.jpeg?w=800', title: 'Songzio Fall 2026 Look 4/61', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/dries-van-noten-fall-2026-rtw-men-r-gg-0006.jpg?w=800', title: 'Dries van Noten Men’s Fall 2026 Look 6/67', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/amiri-fall-26-rtw-men-r-gg-045.jpeg?w=800', title: 'Amiri Fall 2026 Look 45/59', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/louis-vuitton-paris-fw26-men-rtw-r-gg-076.jpg?w=800', title: 'Louis Vuitton Men’s Fall 2026 Look 76/80', desc: '' },
+                { url: 'https://wwd.com/wp-content/uploads/2026/01/giorgio-armani-milan-fw26-men-rtw-r-gg-076.jpg?w=1024', title: 'Giorgio Armani Men’s Fall 2026 Look 76/136', desc: '' },
+                { url: 'https://d2dalh4h075hii.cloudfront.net/wp-content/uploads/2026/01/dolce-and-gabbana-men-fall-winter-26-fashion-show-look-15.jpg', title: 'Dolce & Gabbana FALL 2026 MENSWEAR Look 15/100', desc: '' }
             ]
         };
 
         let currentActiveColor = '';
         let currentImageIndex = 0;
 
-        // INICIALIZAR ESTADO BASE AL CARGAR LA PÁGINA
+        /* RETENCIÓN DE HISTORIAL EN ANDROID / MÓVIL (EVITA SALIR DE LA WEB) */
+        function pushProtectionState() {
+            history.pushState({ view: 'home_protected' }, '', window.location.pathname);
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
-            history.replaceState({ view: 'home' }, '', window.location.pathname);
+            pushProtectionState();
+            pushProtectionState(); // Doble capa inicial
         });
 
-        // NAVEGAR A LA GALERÍA DESDE LA HOME
+        // NAVEGAR A LA GALERÍA
         function navigateToGallery(colorName) {
             currentActiveColor = colorName;
             history.pushState({ view: 'gallery', color: colorName }, '', `#${colorName.toLowerCase().replace(/\s+/g, '-')}`);
@@ -1214,23 +1011,25 @@
             history.back();
         }
 
-        // CONTROLADOR DE HISTORIAL (BOTÓN ATRÁS DEL TELÉFONO O GESTOS)
+        // CONTROLADOR DE BOTÓN REGRESAR EN ANDROID
         window.addEventListener('popstate', function(event) {
             const modal = document.getElementById('lightboxModal');
             
-            // Si el visor de foto está abierto, ciérralo primero devolviendo a la galería
+            // 1. Si la foto en grande está abierta, solo cierra la foto
             if (modal.classList.contains('active')) {
                 modal.classList.remove('active');
                 return;
             }
 
+            // 2. Si está en una galería, regresa a la home
             if (event.state && event.state.view === 'gallery') {
                 renderGalleryView(event.state.color);
             } else {
-                // Volver de forma limpia a la página principal
+                // 3. Si está en la Home, muestra la vista Home y reinyecta protección para no salir del sitio
                 document.getElementById('galleryPage').classList.remove('active');
                 document.getElementById('homePage').classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                pushProtectionState(); // Bloquea la salida
             }
         });
 
